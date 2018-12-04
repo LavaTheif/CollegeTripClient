@@ -19,7 +19,7 @@ import java.util.Scanner;
 public class Utils {
     private static int screen = 0;
     private static boolean blockServer = false;//Will stop people spamming the submit button
-    private static String USERTOKEN = "Secret-Token";
+    private static String USERTOKEN = "Secret-Token";//TODO
     public static String tripID = "";
     
     public static void contactServer(HashMap<String, String> jsonData){
