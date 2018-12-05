@@ -19,13 +19,17 @@ import java.util.Scanner;
 public class Utils {
     private static int screen = 0;
     private static boolean blockServer = false;//Will stop people spamming the submit button
-    private static String USERTOKEN = "Secret-Token";//TODO
+    private static String USERTOKEN = null;//TODO
     public static String tripID = "";
+    
+    private static boolean login = false;
     
     public static void contactServer(HashMap<String, String> jsonData){
         if(blockServer)
             return;
         blockServer = true;
+        
+        login = jsonData.get("request").equals("login");
         
         jsonData.put("token", USERTOKEN);
         String data = new Gson().toJson(jsonData);
@@ -65,6 +69,17 @@ public class Utils {
         HashMap<String, String> data = new Gson().fromJson(message, HashMap.class);
         boolean valid = data.get("valid").equals("true");//TODO Get from message data.
         String errMsg = data.get("errMsg");
+        blockServer = false;
+
+        if(login){
+            if(valid){
+                USERTOKEN = data.get("token");
+                CollegeTripPlanner.loginScreen.dataValid();
+            }else{
+                CollegeTripPlanner.loginScreen.dataInvalid(errMsg);
+            }
+            return;
+        }
         
         if(screen == 0){
             if(valid){
@@ -87,6 +102,9 @@ public class Utils {
         }
         if(valid)
             screen++;
-        blockServer = false;
+    }
+
+    static void newTrip() {
+        screen = 0;
     }
 }

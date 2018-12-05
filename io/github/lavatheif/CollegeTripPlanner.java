@@ -17,11 +17,15 @@ public class CollegeTripPlanner {
     public static TripDetailsScreen details;
     public static StartScreen start;
     public static FileUploads uploads;
+    public static Login loginScreen;
+    public static MainMenu mainMenu;
     
     public static void main(String[] args) {
         //TODO: allow log in
-        //TODO: create new screen to list all trip.  Add a refresh button to it
-        start = new StartScreen();
+        //create new screen to list all trip.  Add a refresh button to it
+        mainMenu = new MainMenu();
+        loginScreen = new Login();
+//        loginScreen.hide();
     }
     
 }
