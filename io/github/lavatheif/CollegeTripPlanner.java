@@ -24,7 +24,6 @@ public class CollegeTripPlanner {
         //TODO: allow log in
         //create new screen to list all trip.  Add a refresh button to it
         mainMenu = new MainMenu();
-        loginScreen = new Login();
 //        loginScreen.hide();
     }
     
