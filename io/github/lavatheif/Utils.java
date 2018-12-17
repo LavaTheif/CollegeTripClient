@@ -19,10 +19,17 @@ import java.util.Scanner;
 public class Utils {
     private static int screen = 0;
     private static boolean blockServer = false;//Will stop people spamming the submit button
-    private static String USERTOKEN = null;//TODO
+    private static String USERTOKEN = null;
+    private static String ID = null;
     public static String tripID = "";
+    private static int mode = -1;
     
     private static boolean login = false;
+    
+    public static void contactServer(HashMap<String, String> jsonData, int id){
+        contactServer(jsonData);
+        mode = id;
+    }
     
     public static void contactServer(HashMap<String, String> jsonData){
         if(blockServer)
@@ -31,7 +38,12 @@ public class Utils {
         
         login = jsonData.get("request").equals("login");
         
+        if(!login && mode==-1){
+            //editing the trip
+            jsonData.put("tripID", tripID);
+        }
         jsonData.put("token", USERTOKEN);
+        jsonData.put("id", ID);
         String data = new Gson().toJson(jsonData);
         
         new Thread(new Runnable() {
@@ -40,7 +52,9 @@ public class Utils {
                 try {                    
                     onServerReply(send(data));
                     return;
-                } catch (Exception e) {}
+                } catch (Exception e) {
+                e.printStackTrace();
+                }
                 onServerReply("{\"valid\":\"false\", \"errMsg\":\"Unknown Error Occoured\"}");
             }
         }).start();
@@ -70,10 +84,19 @@ public class Utils {
         boolean valid = data.get("valid").equals("true");//TODO Get from message data.
         String errMsg = data.get("errMsg");
         blockServer = false;
-
+        
+        if(!valid && errMsg.equalsIgnoreCase("Invalid token.  Please log in.")){
+            mode = -1;
+            CollegeTripPlanner.loginScreen.show();
+            CollegeTripPlanner.loginScreen.dataInvalid("");
+            return;
+        }
+                
         if(login){
+            System.out.println(data);
             if(valid){
                 USERTOKEN = data.get("token");
+                ID = data.get("id");
                 CollegeTripPlanner.loginScreen.dataValid();
             }else{
                 CollegeTripPlanner.loginScreen.dataInvalid(errMsg);
@@ -81,6 +104,16 @@ public class Utils {
             return;
         }
         
+        if(mode==0){
+            //getting trips
+            data.remove("valid");
+            for(String trip : data.keySet()){
+                CollegeTripPlanner.mainMenu.addTrip(Integer.parseInt(trip), new Gson().fromJson(data.get(trip), HashMap.class));
+            }
+            mode = -1;
+            return;
+        }
+
         if(screen == 0){
             if(valid){
                 CollegeTripPlanner.start.dataValid();

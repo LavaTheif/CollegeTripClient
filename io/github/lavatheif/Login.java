@@ -46,6 +46,7 @@ public class Login extends javax.swing.JFrame {
                 initComponents();
                 setVisible(true);
                 setLocationRelativeTo(null);
+                setResizable(false);
             }
         });
 
@@ -53,6 +54,7 @@ public class Login extends javax.swing.JFrame {
 
     private void logIn(){
         HashMap<String, String> data = new HashMap<String, String>();
+        dataInvalid("Logging in...");
 
         //Submits the E-Mail and password to the server, where the Server will
         //Either send a token or send an error msg.
@@ -66,6 +68,8 @@ public class Login extends javax.swing.JFrame {
     
     public void dataValid(){
         hide();
+        if(CollegeTripPlanner.mainMenu.isVisible())
+            CollegeTripPlanner.mainMenu.refresh();
     }
     
     public void dataInvalid(String err){
@@ -99,6 +103,7 @@ public class Login extends javax.swing.JFrame {
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("Please enter your E-Mail and Password below");
 
+        eMail.setText("test@woking.ac.uk");
         eMail.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 eMailActionPerformed(evt);

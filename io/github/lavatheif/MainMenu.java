@@ -6,6 +6,15 @@
 package io.github.lavatheif;
 
 import static io.github.lavatheif.CollegeTripPlanner.loginScreen;
+import java.awt.Component;
+import java.awt.Container;
+import java.awt.Dimension;
+import java.awt.GridLayout;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Random;
+import javax.swing.JButton;
+import javax.swing.JLabel;
 
 /**
  *
@@ -47,6 +56,7 @@ public class MainMenu extends javax.swing.JFrame {
                 setVisible(true);
                 setLocationRelativeTo(null);
                 CollegeTripPlanner.loginScreen = new Login();
+                setResizable(false);
             }
         });
     }
@@ -64,7 +74,9 @@ public class MainMenu extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         create = new javax.swing.JButton();
         errMsg = new javax.swing.JLabel();
-        jScrollPane1 = new javax.swing.JScrollPane();
+        tripList = new javax.swing.JScrollPane();
+        jPanel2 = new javax.swing.JPanel();
+        loading = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
 
@@ -86,9 +98,39 @@ public class MainMenu extends javax.swing.JFrame {
 
         errMsg.setForeground(new java.awt.Color(153, 0, 0));
 
-        jScrollPane1.setBackground(new java.awt.Color(255, 255, 215));
+        tripList.setBackground(new java.awt.Color(255, 255, 215));
+        tripList.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+
+        jPanel2.setBackground(new java.awt.Color(255, 255, 215));
+
+        loading.setText("Loading...");
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(274, 274, 274)
+                .addComponent(loading)
+                .addContainerGap(297, Short.MAX_VALUE))
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(114, 114, 114)
+                .addComponent(loading)
+                .addContainerGap(129, Short.MAX_VALUE))
+        );
+
+        tripList.setViewportView(jPanel2);
+        jPanel2.getAccessibleContext().setAccessibleName("");
 
         jButton1.setText("Refresh");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         jButton2.setText("Load More");
 
@@ -109,18 +151,20 @@ public class MainMenu extends javax.swing.JFrame {
                                 .addComponent(create)
                                 .addContainerGap())))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING))
+                        .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addContainerGap())))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(270, 270, 270)
                 .addComponent(jButton2)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(tripList, javax.swing.GroupLayout.DEFAULT_SIZE, 614, Short.MAX_VALUE))
+                .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -131,9 +175,9 @@ public class MainMenu extends javax.swing.JFrame {
                 .addComponent(create)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jButton1)
-                .addGap(19, 19, 19)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 261, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(13, 13, 13)
+                .addComponent(tripList, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jButton2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(errMsg)
@@ -159,7 +203,91 @@ public class MainMenu extends javax.swing.JFrame {
         Utils.newTrip();
         hide();
     }//GEN-LAST:event_createActionPerformed
+    
+    public void refresh(){
+        jButton1ActionPerformed(null);
+    }
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        HashMap<String, String> map = new HashMap<String, String>();
+        resetMenu();
+        map.put("request", "trips");
+        Utils.contactServer(map, 0);
+    }//GEN-LAST:event_jButton1ActionPerformed
+    
+    private void resetMenu(){
+        i=0;
+        for(Component c : jPanel2.getComponents()){
+            if(c instanceof JLabel){
+                c.setVisible(true);
+                continue;
+            }
+            jPanel2.remove(c);
+        }
+        Dimension d = new Dimension(612, 259);
+        jPanel2.setSize(d);
+        jPanel2.setPreferredSize(d);
+        jPanel2.setMaximumSize(d);
+        jPanel2.setMinimumSize(d);
 
+        jPanel2.setVisible(false);
+        jPanel2.setVisible(true);
+    }
+    int i = 0;
+    public void addTrip(int id, HashMap<String, String> details){
+        loading.setVisible(false);
+        
+        TripListItem banner = new TripListItem();
+        String approved = details.get("approved");
+        String date = details.get("date_start");
+        boolean inPast = false;
+        if(!date.equalsIgnoreCase("null")){
+            String[] arr = date.split("/");
+            @SuppressWarnings("deprecation")
+            Date tripDate = new Date(Integer.parseInt(arr[2]) - 1900, Integer.parseInt(arr[1]) - 1,
+                            Integer.parseInt(arr[0]));
+            if (new Date().getTime() < tripDate.getTime()) {
+                    inPast = true;
+            }
+        }
+        
+        //incomplete: red
+        //not approved: yellow/orange
+        //approved, but not completed: green
+        //completed: blue
+        if(approved.equalsIgnoreCase("null")){
+            //red
+            banner.setColour(new java.awt.Color(234, 134, 119));
+        }else if(approved.equalsIgnoreCase("false")){
+            //yellow/orange
+            banner.setColour(new java.awt.Color(255, 207, 130));
+        }else if(!inPast){
+            //green -- leave as is
+        }else{
+            //blue
+            banner.setColour(new java.awt.Color(119, 218, 234));
+        }
+
+
+        banner.setLocation(25, i*90+5);
+        i++;
+        banner.setSize(548, 87);
+        banner.setPreferredSize(new Dimension(548, 87));
+        banner.setMinimumSize(new Dimension(548, 87));
+        banner.setMaximumSize(new Dimension(548, 87));
+        banner.setID(id+"");
+        banner.setCreator(details.get("creator"));
+        banner.setLocationText(details.get("location"));
+        banner.setApproved(approved);
+        banner.setDate(date);
+                
+        jPanel2.add(banner);
+        Dimension d = new Dimension(612, (259>(((1+i)*90)+(5*(1+i)))?259:(((1+i)*90)+(5*(1+i)))));
+        jPanel2.setSize(d);
+        jPanel2.setPreferredSize(d);
+        jPanel2.setMaximumSize(d);
+        jPanel2.setMinimumSize(d);
+    }
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton create;
     private javax.swing.JLabel errMsg;
@@ -167,6 +295,8 @@ public class MainMenu extends javax.swing.JFrame {
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JLabel loading;
+    private javax.swing.JScrollPane tripList;
     // End of variables declaration//GEN-END:variables
 }

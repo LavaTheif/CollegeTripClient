@@ -48,6 +48,7 @@ public class StartScreen extends javax.swing.JFrame {
                 initComponents();
                 setVisible(true);
                 setLocationRelativeTo(null);
+                setResizable(false);
             }
         });
     }
