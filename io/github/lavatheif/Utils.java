@@ -22,6 +22,7 @@ public class Utils {
     private static String USERTOKEN = null;
     private static String ID = null;
     public static String tripID = "";
+    public static String[] teachers = {};
     private static int mode = -1;
     
     private static boolean login = false;
@@ -118,7 +119,12 @@ public class Utils {
             if(valid){
                 CollegeTripPlanner.start.dataValid();
                 tripID = data.get("trip id");
+                teachers = data.get("teachersString").split("-");
                 System.out.println("Trip: "+tripID);
+                System.out.println("Teachers: ");
+                for(int i = 0;i<teachers.length; i++){
+                    System.out.println(teachers[i].replace("@woking.ac.uk}", "").replace("{email=", ""));
+                }
             }else{
                 CollegeTripPlanner.start.dataInvalid(errMsg);
             }
