@@ -5,8 +5,14 @@
  */
 package io.github.lavatheif;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.util.HashMap;
+import java.util.Scanner;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -234,9 +240,10 @@ public class FileUploads extends javax.swing.JFrame {
         System.out.println("Finance Report: "+(financeReport==null?null:financeReport.getAbsolutePath()));
         System.out.println("Letter: "+(letterToParents==null?null:letterToParents.getAbsolutePath()));
         System.out.println("other: "+(riskAssessment==null?null:riskAssessment.getAbsolutePath()));
-        
+                
         HashMap<String, String> data = new HashMap<String, String>();
         data.put("request", "file upload");
+//        data.put("financeContents",  f);
         //TODO send differently for file uploads
         Utils.contactServer(data);
         //Server responce will either call dataValid, or dataInvalid
