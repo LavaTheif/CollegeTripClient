@@ -11,15 +11,16 @@ package io.github.lavatheif;
  */
 public class CollegeTripPlanner {
 
-    /**
-     * @param args the command line arguments
-     */
     public static TripDetailsScreen details;
+    public static ViewTripDetails viewDetails;
     public static StartScreen start;
     public static FileUploads uploads;
     public static Login loginScreen;
     public static MainMenu mainMenu;
     
+    /**
+     * @param args the command line arguments
+     */
     public static void main(String[] args) {
         //TODO: allow log in
         //create new screen to list all trip.  Add a refresh button to it

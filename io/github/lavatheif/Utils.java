@@ -9,20 +9,23 @@ import com.google.gson.Gson;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.Socket;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Scanner;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
  * @author cf32047
  */
 public class Utils {
-    private static int screen = 0;
+    public static int screen = 0;
     private static boolean blockServer = false;//Will stop people spamming the submit button
     private static String USERTOKEN = null;
-    private static String ID = null;
+    public static String ID = null;
     public static String tripID = "";
-    public static String[] teachers = {};
     private static int mode = -1;
     
     private static boolean login = false;
@@ -94,10 +97,12 @@ public class Utils {
         }
                 
         if(login){
-            System.out.println(data);
             if(valid){
                 USERTOKEN = data.get("token");
                 ID = data.get("id");
+                try {
+                    Thread.sleep(1000);//ensure that token is saved to the db
+                } catch (InterruptedException ex) {}
                 CollegeTripPlanner.loginScreen.dataValid();
             }else{
                 CollegeTripPlanner.loginScreen.dataInvalid(errMsg);
@@ -108,8 +113,32 @@ public class Utils {
         if(mode==0){
             //getting trips
             data.remove("valid");
-            for(String trip : data.keySet()){
+            int[] keys = getOrder(data);
+            
+            //add elements to return array, in descending order.
+            for(int i = keys.length-1; i >= 0; i--){
+                String trip = keys[i]+"";
                 CollegeTripPlanner.mainMenu.addTrip(Integer.parseInt(trip), new Gson().fromJson(data.get(trip), HashMap.class));
+            }
+            mode = -1;
+            return;
+        }else if(mode==1){
+            CollegeTripPlanner.viewDetails.addData(data);
+            mode = -1;
+           return;
+        }else if(mode == 2){
+            if(valid){
+                CollegeTripPlanner.viewDetails.tripAccepted();
+            }else{
+                CollegeTripPlanner.viewDetails.dataInvalid(errMsg);
+            }
+            mode = -1;
+            return;
+        }else if(mode == 3){
+            if(valid){
+                CollegeTripPlanner.viewDetails.tripDenied();
+            }else{
+                CollegeTripPlanner.viewDetails.dataInvalid(errMsg);
             }
             mode = -1;
             return;
@@ -119,12 +148,7 @@ public class Utils {
             if(valid){
                 CollegeTripPlanner.start.dataValid();
                 tripID = data.get("trip id");
-                teachers = data.get("teachersString").split("-");
                 System.out.println("Trip: "+tripID);
-                System.out.println("Teachers: ");
-                for(int i = 0;i<teachers.length; i++){
-                    System.out.println(teachers[i].replace("@woking.ac.uk}", "").replace("{email=", ""));
-                }
             }else{
                 CollegeTripPlanner.start.dataInvalid(errMsg);
             }
@@ -145,5 +169,22 @@ public class Utils {
 
     static void newTrip() {
         screen = 0;
+    }
+
+    private static int[] getOrder(HashMap<String, String> data) {
+        //sorts a hashmap from low to high values
+        
+        int[] keys = new int[data.keySet().size()];
+        
+        //convert the keys to integers
+        for(int i = 0; i < data.keySet().size(); i++){
+            int key = Integer.parseInt(""+data.keySet().toArray()[i]);
+            keys[i] = key;
+        }
+        
+        //sort it
+        Arrays.sort(keys);
+        
+        return keys;
     }
 }

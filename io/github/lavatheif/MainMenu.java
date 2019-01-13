@@ -133,6 +133,11 @@ public class MainMenu extends javax.swing.JFrame {
         });
 
         jButton2.setText("Load More");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -213,6 +218,13 @@ public class MainMenu extends javax.swing.JFrame {
         map.put("request", "trips");
         Utils.contactServer(map, 0);
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        HashMap<String, String> map = new HashMap<String, String>();
+        map.put("request", "trips");
+        map.put("start", ""+i);
+        Utils.contactServer(map, 0);
+    }//GEN-LAST:event_jButton2ActionPerformed
     
     private void resetMenu(){
         i=0;
@@ -245,7 +257,8 @@ public class MainMenu extends javax.swing.JFrame {
             @SuppressWarnings("deprecation")
             Date tripDate = new Date(Integer.parseInt(arr[2]) - 1900, Integer.parseInt(arr[1]) - 1,
                             Integer.parseInt(arr[0]));
-            if (new Date().getTime() < tripDate.getTime()) {
+
+            if (new Date().getTime() > tripDate.getTime()) {
                     inPast = true;
             }
         }
@@ -253,19 +266,19 @@ public class MainMenu extends javax.swing.JFrame {
         //incomplete: red
         //not approved: yellow/orange
         //approved, but not completed: green
-        //completed: blue
-        if(approved.equalsIgnoreCase("null")){
+        //in past: blue
+        if(inPast){
+            //blue
+            banner.setColour(new java.awt.Color(119, 218, 234));
+        }else if(approved.equalsIgnoreCase("null")){
             //red
             banner.setColour(new java.awt.Color(234, 134, 119));
         }else if(approved.equalsIgnoreCase("false")){
             //yellow/orange
             banner.setColour(new java.awt.Color(255, 207, 130));
-        }else if(!inPast){
-            //green -- leave as is
         }else{
-            //blue
-            banner.setColour(new java.awt.Color(119, 218, 234));
-        }
+            //green -- leave as is
+        } 
 
 
         banner.setLocation(25, i*90+5);
