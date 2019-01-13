@@ -123,7 +123,6 @@ public class Complete extends javax.swing.JFrame {
 
     private void okActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_okActionPerformed
         CollegeTripPlanner.mainMenu.show();
-        CollegeTripPlanner.mainMenu.refresh();
         dispose();
     }//GEN-LAST:event_okActionPerformed
 
