@@ -100,7 +100,7 @@ public class ViewTripDetails extends javax.swing.JFrame {
         staff1 = new javax.swing.JTextField();
         staff2 = new javax.swing.JTextField();
         staff3 = new javax.swing.JTextField();
-        transport = new javax.swing.JTextField();
+        transport_other = new javax.swing.JTextField();
         cost = new javax.swing.JTextField();
         edit = new javax.swing.JButton();
         endTime = new javax.swing.JPanel();
@@ -112,6 +112,9 @@ public class ViewTripDetails extends javax.swing.JFrame {
         deny = new javax.swing.JButton();
         accept = new javax.swing.JButton();
         denyReason = new javax.swing.JTextField();
+        jLabel11 = new javax.swing.JLabel();
+        group = new javax.swing.JTextField();
+        transport = new javax.swing.JComboBox<>();
         jLabel1 = new javax.swing.JLabel();
 
         jMenuItem1.setText("jMenuItem1");
@@ -179,7 +182,7 @@ public class ViewTripDetails extends javax.swing.JFrame {
         staff3.setToolTipText("Other Staff");
         staff3.setEnabled(false);
 
-        transport.setEnabled(false);
+        transport_other.setEnabled(false);
 
         cost.setToolTipText("Cost");
         cost.setEnabled(false);
@@ -255,6 +258,13 @@ public class ViewTripDetails extends javax.swing.JFrame {
         denyReason.setText("Reason to Deny Trip.");
         denyReason.setEnabled(false);
 
+        jLabel11.setText("Group");
+
+        group.setEnabled(false);
+
+        transport.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Select", "Car", "Bus", "Train", "Coach", "Walk", "Plane", "Boat", "Other" }));
+        transport.setEnabled(false);
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -286,8 +296,10 @@ public class ViewTripDetails extends javax.swing.JFrame {
                                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                         .addGroup(jPanel1Layout.createSequentialGroup()
                                             .addComponent(jLabel9)
-                                            .addGap(18, 18, 18)
-                                            .addComponent(transport, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                            .addComponent(transport, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                            .addComponent(transport_other, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE))
                                         .addGroup(jPanel1Layout.createSequentialGroup()
                                             .addComponent(jLabel8)
                                             .addGap(18, 18, 18)
@@ -300,37 +312,42 @@ public class ViewTripDetails extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(12, 12, 12)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addComponent(jLabel6)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 323, Short.MAX_VALUE))
-                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                    .addComponent(jLabel2)
-                                                    .addComponent(jLabel3)
-                                                    .addComponent(jLabel5))
-                                                .addGap(18, 18, 18))
-                                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                                .addComponent(jLabel4)
-                                                .addGap(35, 35, 35)))
-                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(day, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                                .addComponent(location, javax.swing.GroupLayout.DEFAULT_SIZE, 360, Short.MAX_VALUE)
-                                                .addComponent(address)
-                                                .addGroup(jPanel1Layout.createSequentialGroup()
-                                                    .addComponent(timeStartHour, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                    .addComponent(endTime, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addContainerGap()
                                 .addComponent(jLabel10)
                                 .addGap(7, 7, 7)
-                                .addComponent(cost, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(cost, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(12, 12, 12)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addComponent(jLabel11)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(group, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                        .addGroup(jPanel1Layout.createSequentialGroup()
+                                            .addComponent(jLabel6)
+                                            .addGap(18, 18, 18)
+                                            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 323, Short.MAX_VALUE))
+                                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                        .addComponent(jLabel2)
+                                                        .addComponent(jLabel3)
+                                                        .addComponent(jLabel5))
+                                                    .addGap(18, 18, 18))
+                                                .addGroup(jPanel1Layout.createSequentialGroup()
+                                                    .addComponent(jLabel4)
+                                                    .addGap(35, 35, 35)))
+                                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                .addComponent(day, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                                    .addComponent(location, javax.swing.GroupLayout.DEFAULT_SIZE, 360, Short.MAX_VALUE)
+                                                    .addComponent(address)
+                                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                                        .addComponent(timeStartHour, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                        .addComponent(endTime, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))))))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -344,12 +361,12 @@ public class ViewTripDetails extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel3)
-                    .addComponent(address, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                    .addComponent(address, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
                     .addComponent(day, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(43, 43, 43)
+                .addGap(37, 37, 37)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel5)
@@ -359,7 +376,11 @@ public class ViewTripDetails extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel6)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(24, 24, 24)
+                .addGap(14, 14, 14)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel11)
+                    .addComponent(group, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel7)
                     .addComponent(totalStudents, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -377,8 +398,9 @@ public class ViewTripDetails extends javax.swing.JFrame {
                         .addComponent(staff3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(37, 37, 37)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(transport, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel9))
+                            .addComponent(transport_other, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel9)
+                            .addComponent(transport, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(cost, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -443,16 +465,34 @@ public class ViewTripDetails extends javax.swing.JFrame {
 
         boolean isResi = data.get("is_residential").equalsIgnoreCase("true");
         
-        address.setText(data.get("address"));
+        address.setText(data.get("address").replace("-",", "));
         location.setText(data.get("location"));
         day.setText(data.get("date_start"));
         timeStartHour.setText(data.get("time_start"));
         timeEndHour.setText(data.get("end")+(isResi?" days long":""));
         resdential.setSelected(isResi);
         purpose.setText(data.get("purpose"));
+        group.setText(data.get("groups"));
         totalStudents.setText(data.get("max_students"));
-//      TODO: Set the teachers going on the trip
-        transport.setText(data.get("transport"));
+        
+        String[] s = data.get("staff").split(",");
+        if(s.length > 0)
+            leader.setText(s[0]);
+        if(s.length > 1)
+            staff1.setText(s[1]);
+        if(s.length > 2)
+            staff2.setText(s[2]);
+        if(s.length > 3)
+            staff3.setText(s[3]);
+
+       String trans = data.get("transport");
+        if(trans.contains("__")){
+            transport_other.setText(trans.replace("__",""));
+            transport.setSelectedItem("Other");
+        }else{
+            transport.setSelectedItem(trans);
+        }
+
         cost.setText(data.get("cost"));
         
         //trip can only be edited if nobody has accepted it yet.
@@ -471,11 +511,13 @@ public class ViewTripDetails extends javax.swing.JFrame {
             dataInvalid("This is in the process of being approved.");
 
         if(data.get("creator").equals(Utils.ID)){
-            if(data.get("initial_approvals").equals("") || data.get("initial_approvals").equals("null"))
+            if(data.get("initial_approvals").equals("") || data.get("initial_approvals").equals("null")){
                 edit.setEnabled(true);
-            else
+            }else{
                 edit.setEnabled(false);
-        }else{
+            }
+        }
+        if(Utils.isAdmin){
             if(!Arrays.asList(data.get("initial_approvals").split(",")).contains(Utils.ID))
                 accept.setEnabled(true);//can only accept if not accepted
             else
@@ -521,13 +563,14 @@ public class ViewTripDetails extends javax.swing.JFrame {
     public void tripAccepted(){
         dataInvalid("Trip Accepted successfully!");
         accept.setEnabled(false);
-    }
+        edit.setEnabled(false);
+   }
     
     
     void tripDenied() {
         dataInvalid("Trip denied successfully!");
         accept.setEnabled(true);
-
+        
     }
     
     public void dataInvalid(String err){
@@ -545,8 +588,10 @@ public class ViewTripDetails extends javax.swing.JFrame {
     private javax.swing.JButton edit;
     private javax.swing.JPanel endTime;
     private javax.swing.JLabel errMsg;
+    private javax.swing.JTextField group;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -570,6 +615,7 @@ public class ViewTripDetails extends javax.swing.JFrame {
     private javax.swing.JTextField timeEndHour;
     private javax.swing.JTextField timeStartHour;
     private javax.swing.JTextField totalStudents;
-    private javax.swing.JTextField transport;
+    private javax.swing.JComboBox<String> transport;
+    private javax.swing.JTextField transport_other;
     // End of variables declaration//GEN-END:variables
 }

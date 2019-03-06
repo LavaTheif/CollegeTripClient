@@ -27,7 +27,10 @@ public class Utils {
     public static String ID = null;
     public static String tripID = "";
     private static int mode = -1;
-    
+    public static boolean isAdmin = false;
+ 
+    public static String[] teachers = {};
+
     private static boolean login = false;
     
     public static void contactServer(HashMap<String, String> jsonData, int id){
@@ -87,6 +90,7 @@ public class Utils {
         HashMap<String, String> data = new Gson().fromJson(message, HashMap.class);
         boolean valid = data.get("valid").equals("true");//TODO Get from message data.
         String errMsg = data.get("errMsg");
+        System.out.println(data);
         blockServer = false;
         
         if(!valid && errMsg.equalsIgnoreCase("Invalid token.  Please log in.")){
@@ -100,6 +104,7 @@ public class Utils {
             if(valid){
                 USERTOKEN = data.get("token");
                 ID = data.get("id");
+                isAdmin = data.get("admin").equalsIgnoreCase("true");
                 try {
                     Thread.sleep(1000);//ensure that token is saved to the db
                 } catch (InterruptedException ex) {}
@@ -123,6 +128,7 @@ public class Utils {
             mode = -1;
             return;
         }else if(mode==1){
+            teachers = data.get("teachersString").split("-");
             CollegeTripPlanner.viewDetails.addData(data);
             mode = -1;
            return;
@@ -148,7 +154,8 @@ public class Utils {
             if(valid){
                 CollegeTripPlanner.start.dataValid();
                 tripID = data.get("trip id");
-                System.out.println("Trip: "+tripID);
+                teachers = data.get("teachersString").split("-");
+//                System.out.println("Trip: "+tripID);
             }else{
                 CollegeTripPlanner.start.dataInvalid(errMsg);
             }

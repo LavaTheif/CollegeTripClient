@@ -6,6 +6,7 @@
 package io.github.lavatheif;
 
 import java.util.HashMap;
+import javax.xml.ws.BindingProvider;
 
 /**
  *
@@ -68,6 +69,7 @@ public class Login extends javax.swing.JFrame {
     
     public void dataValid(){
         hide();
+        CollegeTripPlanner.mainMenu.setName(eMail.getText());
         if(CollegeTripPlanner.mainMenu.isVisible())
             CollegeTripPlanner.mainMenu.refresh();
     }
