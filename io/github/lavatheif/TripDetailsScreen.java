@@ -576,11 +576,11 @@ public class TripDetailsScreen extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void locationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_locationActionPerformed
-        // TODO add your handling code here:
+        //  add your handling code here:
     }//GEN-LAST:event_locationActionPerformed
 
     private void yearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_yearActionPerformed
-        // TODO add your handling code here:
+        //  add your handling code here:
     }//GEN-LAST:event_yearActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
@@ -674,7 +674,7 @@ public class TripDetailsScreen extends javax.swing.JFrame {
     }//GEN-LAST:event_totalStudentsKeyReleased
 
     private void groupActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_groupActionPerformed
-        // TODO add your handling code here:
+        //  add your handling code here:
     }//GEN-LAST:event_groupActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -799,9 +799,9 @@ public class TripDetailsScreen extends javax.swing.JFrame {
         
         if(isResi)
             resdentialActionPerformed(null);
-        //TODO: check on the server that trip has no accpets.
-        //TODO: if a user denies the trip, set the accepts to 0. -- reason must be given.
-        //TODO: if a user accpets the trip, dont let them accept it again unless it is denied.
+        //: check on the server that trip has no accpets.
+        //: if a user denies the trip, set the accepts to 0. -- reason must be given.
+        //: if a user accpets the trip, dont let them accept it again unless it is denied.
         
     }
 }

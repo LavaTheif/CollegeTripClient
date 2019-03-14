@@ -234,7 +234,7 @@ public class TripListItem extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jPanel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel1MouseClicked
-//        System.out.println("TODO: Open ViewTripDetails screen and request data for the trip: " + id.getText());
+//        System.out.println(": Open ViewTripDetails screen and request data for the trip: " + id.getText());
         new ViewTripDetails(id.getText());
     }//GEN-LAST:event_jPanel1MouseClicked
 

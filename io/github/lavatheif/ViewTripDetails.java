@@ -5,7 +5,9 @@
  */
 package io.github.lavatheif;
 
-import java.awt.Color;
+import java.io.BufferedOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
 import java.util.Arrays;
 import java.util.HashMap;
 
@@ -15,7 +17,7 @@ import java.util.HashMap;
  */
 public class ViewTripDetails extends javax.swing.JFrame {
     private HashMap<String, String> store;
-    private String tripID;
+    private String tripID, financePath, letterPath, riskPath;
     
     /**
      * Creates new form Window
@@ -276,17 +278,20 @@ public class ViewTripDetails extends javax.swing.JFrame {
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(errMsg, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(download))
-                                .addGap(242, 242, 242)
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addComponent(errMsg, javax.swing.GroupLayout.DEFAULT_SIZE, 103, Short.MAX_VALUE)
+                                        .addGap(242, 242, 242))
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addComponent(download)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(denyReason)
                                     .addGroup(jPanel1Layout.createSequentialGroup()
                                         .addComponent(accept)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addComponent(deny)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(edit))
-                                    .addComponent(denyReason)))
+                                        .addComponent(edit))))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(jPanel1Layout.createSequentialGroup()
@@ -405,10 +410,10 @@ public class ViewTripDetails extends javax.swing.JFrame {
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(cost, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel10))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 119, Short.MAX_VALUE)
                         .addComponent(errMsg))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 206, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(edit)
                             .addComponent(deny)
@@ -474,6 +479,9 @@ public class ViewTripDetails extends javax.swing.JFrame {
         purpose.setText(data.get("purpose"));
         group.setText(data.get("groups"));
         totalStudents.setText(data.get("max_students"));
+        financePath = data.get("finance_report");
+        letterPath = data.get("parent_letter");
+        riskPath = data.get("risk_assessment");
         
         String[] s = data.get("staff").split(",");
         if(s.length > 0)
@@ -496,9 +504,9 @@ public class ViewTripDetails extends javax.swing.JFrame {
         cost.setText(data.get("cost"));
         
         //trip can only be edited if nobody has accepted it yet.
-        //TODO: check on the server that trip has no accpets.
-        //TODO: if a user denies the trip, set the accepts to 0. -- reason must be given.
-        //TODO: if a user accpets the trip, dont let them accept it again unless it is denied.
+        //: check on the server that trip has no accpets.
+        //: if a user denies the trip, set the accepts to 0. -- reason must be given.
+        //: if a user accpets the trip, dont let them accept it again unless it is denied.
         
         if(data.get("approved") != null){
             if(data.get("approved").equalsIgnoreCase("true")){
@@ -529,7 +537,7 @@ public class ViewTripDetails extends javax.swing.JFrame {
     }
     
     private void editActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editActionPerformed
-        //TODO: edit trip
+        //: edit trip
         //forwards to trip details screen.
         dispose();
         CollegeTripPlanner.mainMenu.hide();
@@ -540,9 +548,107 @@ public class ViewTripDetails extends javax.swing.JFrame {
     }//GEN-LAST:event_editActionPerformed
 
     private void downloadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_downloadActionPerformed
-        // TODO add your handling code here:
+        //  add your handling code here:
+        HashMap<String, String> data = new HashMap<>();
+        data.put("trip-id", tripID);
+        data.put("request", "file download");
+        
+        Utils.contactServer(data, 4);
     }//GEN-LAST:event_downloadActionPerformed
 
+    public void downloadFiles(HashMap<String, String> data){
+        dataInvalid("Downloading files...");
+        File dir = new File("C:/Users/"+System.getProperty("user.name")+"/Documents/trip-data/"+data.get("trip-id"));
+        try{
+            
+            if(!dir.exists())
+                dir.mkdirs();
+            
+            FileOutputStream fos = null;
+            BufferedOutputStream bos = null;
+            
+            if(!(""+financePath).equalsIgnoreCase("null")){
+                
+                String financeOutputPath = dir+"/finance_report_download." + financePath;
+                System.out.println("");
+                System.out.println(financeOutputPath);
+                Object financeBlob = data.get("finance");
+                String financeString = financeBlob.toString();
+                financeString = financeString.replace("[", "");
+                financeString = financeString.replace("]", "");
+                financeString = financeString.replace(" ", "");
+                String[] financeStringArray = financeString.split(",");
+                byte[] financeByteArray = new byte[financeStringArray.length];
+                for(int i = 0;i<financeStringArray.length;i++){
+                    financeByteArray[i] = Byte.parseByte(Integer.toString((int) Float.parseFloat(financeStringArray[i])));
+                }
+            
+                fos = new FileOutputStream(financeOutputPath);
+                bos = new BufferedOutputStream(fos);
+		bos.write(financeByteArray, 0 , financeByteArray.length);
+		bos.flush();
+                bos.close();
+                fos.close();
+            }
+            if(!(""+letterPath).equalsIgnoreCase("null")){
+                
+                String letterOutputPath = dir+"/parents_letter_download." + letterPath;
+                System.out.println("");
+                System.out.println(letterOutputPath);
+                Object letterBlob = data.get("letter");
+                String letterString = letterBlob.toString();
+                letterString = letterString.replace("[", "");
+                letterString = letterString.replace("]", "");
+                letterString = letterString.replace(" ", "");
+                String[] letterStringArray = letterString.split(",");
+                byte[] letterByteArray = new byte[letterStringArray.length];
+                for(int i = 0;i<letterStringArray.length;i++){
+                    letterByteArray[i] = Byte.parseByte(Integer.toString((int) Float.parseFloat(letterStringArray[i])));
+                }
+            
+                fos = new FileOutputStream(letterOutputPath);
+                bos = new BufferedOutputStream(fos);
+		bos.write(letterByteArray, 0 , letterByteArray.length);
+		bos.flush();
+                bos.close();
+                fos.close();
+            }
+            if(!(""+riskPath).equalsIgnoreCase("null")){
+                
+                String riskOutputPath = dir+"/risk_assessment_download." + riskPath;
+                System.out.println("");
+                System.out.println(riskOutputPath);
+                Object riskBlob = data.get("risks");
+                String riskString = riskBlob.toString();
+                riskString = riskString.replace("[", "");
+                riskString = riskString.replace("]", "");
+                riskString = riskString.replace(" ", "");
+                String[] riskStringArray = riskString.split(",");
+                byte[] riskByteArray = new byte[riskStringArray.length];
+                for(int i = 0;i<riskStringArray.length;i++){
+                    riskByteArray[i] = Byte.parseByte(Integer.toString((int) Float.parseFloat(riskStringArray[i])));
+                }
+            
+                fos = new FileOutputStream(riskOutputPath);
+                bos = new BufferedOutputStream(fos);
+		bos.write(riskByteArray, 0 , riskByteArray.length);
+		bos.flush();
+                bos.close();
+                fos.close();
+            }
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+        try{
+            Runtime.getRuntime().exec("explorer.exe /select," + dir.getAbsolutePath()+"\\");
+            dataInvalid("Files Downloaded.");
+        }catch(Exception e){
+            dataInvalid("Files Downloaded to "+dir);            
+        }
+
+        //String[] financeStringArray = financeBlob.split(",");
+    }
+    
     private void acceptActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_acceptActionPerformed
         HashMap<String, String> data = new HashMap<>();
         data.put("trip-ID", tripID);

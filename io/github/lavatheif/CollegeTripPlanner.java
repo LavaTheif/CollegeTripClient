@@ -22,7 +22,7 @@ public class CollegeTripPlanner {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        //TODO: allow log in
+        //allow log in
         //create new screen to list all trip.  Add a refresh button to it
         mainMenu = new MainMenu();
 //        loginScreen.hide();

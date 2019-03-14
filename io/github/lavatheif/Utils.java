@@ -88,7 +88,7 @@ public class Utils {
     
     private static void onServerReply(String message) {
         HashMap<String, String> data = new Gson().fromJson(message, HashMap.class);
-        boolean valid = data.get("valid").equals("true");//TODO Get from message data.
+        boolean valid = data.get("valid").equals("true");//Get from message data.
         String errMsg = data.get("errMsg");
         System.out.println(data);
         blockServer = false;
@@ -143,6 +143,14 @@ public class Utils {
         }else if(mode == 3){
             if(valid){
                 CollegeTripPlanner.viewDetails.tripDenied();
+            }else{
+                CollegeTripPlanner.viewDetails.dataInvalid(errMsg);
+            }
+            mode = -1;
+            return;
+        }else if(mode == 4){
+            if(valid){
+                CollegeTripPlanner.viewDetails.downloadFiles(data);
             }else{
                 CollegeTripPlanner.viewDetails.dataInvalid(errMsg);
             }
