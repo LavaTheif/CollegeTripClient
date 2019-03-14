@@ -5,12 +5,12 @@
  */
 package io.github.lavatheif;
 
-import java.io.BufferedReader;
+import java.io.BufferedInputStream;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.FileReader;
+import java.io.IOException;
 import java.util.HashMap;
-import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -234,19 +234,27 @@ public class FileUploads extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        //Send data to server to be validated.
-        dataInvalid("Uploading files...");
-        
-        System.out.println("Finance Report: "+(financeReport==null?null:financeReport.getAbsolutePath()));
-        System.out.println("Letter: "+(letterToParents==null?null:letterToParents.getAbsolutePath()));
-        System.out.println("other: "+(riskAssessment==null?null:riskAssessment.getAbsolutePath()));
+                //Send data to server to be validated.
+                dataInvalid("Uploading files...");
+                String financePath = (financeReport==null?null:financeReport.getAbsolutePath());
+                String letterPath = (letterToParents==null?null:letterToParents.getAbsolutePath());
+                String riskPath = (riskAssessment==null?null:riskAssessment.getAbsolutePath());
                 
-        HashMap<String, String> data = new HashMap<String, String>();
-        data.put("request", "file upload");
-//        data.put("financeContents",  f);
-        //TODO send differently for file uploads
-        Utils.contactServer(data);
-        //Server responce will either call dataValid, or dataInvalid
+                System.out.println("Finance Report: "+financePath);
+                System.out.println("Letter: "+letterPath);
+                System.out.println("Risk Assessment: "+riskPath);
+
+            //sends the data to the server
+            HashMap<String, String> data = new HashMap<String, String>();
+            data.put("request", "file upload");
+            data.put("finance", financePath);
+            data.put("letter", letterPath);
+            data.put("risk", riskPath);
+
+            //        data.put("financeContents",  f);
+            //TODO send differently for file uploads
+            Utils.contactServer(data);        //Server responce will either call dataValid, or dataInvalid
+
     }                                        
     public void dataValid(){
         dispose();

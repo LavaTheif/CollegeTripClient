@@ -148,6 +148,14 @@ public class Utils {
             }
             mode = -1;
             return;
+        }else if(mode == 4){
+            if(valid){
+                CollegeTripPlanner.viewDetails.downloadFiles(data);
+            }else{
+                CollegeTripPlanner.viewDetails.dataInvalid(errMsg);
+            }
+            mode = -1;
+            return;
         }
 
         if(screen == 0){
