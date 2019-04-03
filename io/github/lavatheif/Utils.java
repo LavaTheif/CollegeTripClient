@@ -125,6 +125,10 @@ public class Utils {
                 String trip = keys[i]+"";
                 CollegeTripPlanner.mainMenu.addTrip(Integer.parseInt(trip), new Gson().fromJson(data.get(trip), HashMap.class));
             }
+            if(keys.length==0){
+                CollegeTripPlanner.mainMenu.msg("No Data.");
+            }
+            
             mode = -1;
             return;
         }else if(mode==1){
@@ -169,7 +173,7 @@ public class Utils {
             }
         }else if(screen == 1){
             if(valid)
-                CollegeTripPlanner.details.dataValid();
+                CollegeTripPlanner.details.dataValid(data);
             else
                 CollegeTripPlanner.details.dataInvalid(errMsg);
         }else if(screen == 2){
@@ -201,5 +205,11 @@ public class Utils {
         Arrays.sort(keys);
         
         return keys;
+    }
+
+    static void home(boolean refresh) {
+        CollegeTripPlanner.mainMenu.show();
+        if(refresh)
+            CollegeTripPlanner.mainMenu.refresh();
     }
 }

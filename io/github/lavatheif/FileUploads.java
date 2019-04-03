@@ -27,7 +27,7 @@ public class FileUploads extends javax.swing.JFrame {
     /**
      * Creates new form FileUploads
      */
-    public FileUploads() {
+    public FileUploads(HashMap<String, String> data) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
@@ -60,6 +60,7 @@ public class FileUploads extends javax.swing.JFrame {
                 financeReport = null;
                 letterToParents = null;
                 riskAssessment = null;
+                setUploads(data);
             }
         });
     }
@@ -84,6 +85,10 @@ public class FileUploads extends javax.swing.JFrame {
         jButton3 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
         errMsg = new javax.swing.JLabel();
+        jButton5 = new javax.swing.JButton();
+        cost_lab = new javax.swing.JLabel();
+        letter_lab = new javax.swing.JLabel();
+        risk_lab = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Woking College Trip Planner");
@@ -127,7 +132,7 @@ public class FileUploads extends javax.swing.JFrame {
             }
         });
 
-        jButton4.setText("Continue");
+        jButton4.setText("Submit");
         jButton4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton4ActionPerformed(evt);
@@ -136,6 +141,19 @@ public class FileUploads extends javax.swing.JFrame {
 
         errMsg.setBackground(new java.awt.Color(153, 0, 0));
         errMsg.setForeground(new java.awt.Color(153, 0, 0));
+
+        jButton5.setText("Save");
+        jButton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton5ActionPerformed(evt);
+            }
+        });
+
+        cost_lab.setText(" ");
+
+        letter_lab.setText(" ");
+
+        risk_lab.setText(" ");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -147,22 +165,29 @@ public class FileUploads extends javax.swing.JFrame {
                     .addComponent(errMsg, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(jButton5)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jButton4))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel3)
+                            .addComponent(jLabel4))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addComponent(jLabel2)
-                                .addGap(18, 18, 18)
-                                .addComponent(jButton1))
+                                .addComponent(jButton2)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(letter_lab, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                             .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel3)
-                                    .addComponent(jLabel4))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jButton3)
-                                    .addComponent(jButton2))))
-                        .addGap(0, 84, Short.MAX_VALUE)))
+                                .addComponent(jButton3)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(risk_lab, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(jLabel2)
+                        .addGap(18, 18, 18)
+                        .addComponent(jButton1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(cost_lab, javax.swing.GroupLayout.DEFAULT_SIZE, 129, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
@@ -171,19 +196,24 @@ public class FileUploads extends javax.swing.JFrame {
                 .addGap(26, 26, 26)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(jButton1))
+                    .addComponent(jButton1)
+                    .addComponent(cost_lab))
                 .addGap(33, 33, 33)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
-                    .addComponent(jButton2))
+                    .addComponent(jButton2)
+                    .addComponent(letter_lab))
                 .addGap(32, 32, 32)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
-                    .addComponent(jButton3))
+                    .addComponent(jButton3)
+                    .addComponent(risk_lab))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 45, Short.MAX_VALUE)
                 .addComponent(errMsg)
                 .addGap(3, 3, 3)
-                .addComponent(jButton4)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton4)
+                    .addComponent(jButton5))
                 .addContainerGap())
         );
 
@@ -196,9 +226,9 @@ public class FileUploads extends javax.swing.JFrame {
                 .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(182, 182, 182)
+                .addGap(149, 149, 149)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(171, Short.MAX_VALUE))
+                .addContainerGap(140, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -236,6 +266,25 @@ public class FileUploads extends javax.swing.JFrame {
         new UploadScreen(2);
     }//GEN-LAST:event_jButton3ActionPerformed
 
+    boolean submit;
+    
+    public void reload(){
+        
+        String risks = riskAssessment==null?null:riskAssessment.getName();
+        String letter = letterToParents==null?null:letterToParents.getName();
+        String cost = financeReport==null?null:financeReport.getName();
+        
+        if(risks!=null)
+            risk_lab.setText(risks);
+        
+        if(letter!=null)
+            letter_lab.setText(letter); 
+        
+        if(cost!=null)
+            cost_lab.setText(cost);
+
+    }
+    
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
                 //Send data to server to be validated.
                 dataInvalid("Uploading files...");
@@ -253,7 +302,12 @@ public class FileUploads extends javax.swing.JFrame {
             data.put("finance", financePath);
             data.put("letter", letterPath);
             data.put("risk", riskPath);
-
+            data.put("submit", ""+(evt!=null));
+            submit = evt!=null;
+//            if(evt!=null){
+//                if(financePath==null || letterPath == null || riskPath == null)
+//                    dataInvalid("Can't submit due to missing files.  Saving instead.");
+//            }
             //        data.put("financeContents",  f);
             // send differently for file uploads
             Utils.contactServer(data);        //Server responce will either call dataValid, or dataInvalid
@@ -261,24 +315,51 @@ public class FileUploads extends javax.swing.JFrame {
     }                                        
     public void dataValid(){
         dispose();
-        new Complete();
+        if(submit)
+            new Complete();
+        else
+            new Saved();
     }
     
     public void dataInvalid(String err){
         errMsg.setText(err);    
     }//GEN-LAST:event_jButton4ActionPerformed
 
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+        //Save trip
+        jButton4ActionPerformed(null);
+    }//GEN-LAST:event_jButton5ActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel cost_lab;
     private javax.swing.JLabel errMsg;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
+    private javax.swing.JButton jButton5;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JLabel letter_lab;
+    private javax.swing.JLabel risk_lab;
     // End of variables declaration//GEN-END:variables
+
+    void setUploads(HashMap<String, String> data) {
+        String risks = data.get("risk_assessment");
+        String letter = data.get("parent_letter");
+        String cost = data.get("finance_report");
+        
+        if(risks!=null)
+            risk_lab.setText("risk_assessment."+risks);
+        
+        if(letter!=null)
+            letter_lab.setText("letter."+letter); 
+        
+        if(cost!=null)
+            cost_lab.setText("finance_report."+cost);
+    }
 }

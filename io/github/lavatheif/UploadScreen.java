@@ -97,7 +97,7 @@ public class UploadScreen extends javax.swing.JFrame {
             FileUploads.letterToParents = file;
         else if(id==2)
             FileUploads.riskAssessment = file;
-
+        CollegeTripPlanner.uploads.reload();
     }
     private void jFileChooser1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jFileChooser1ActionPerformed
         if(evt.getActionCommand().equalsIgnoreCase("ApproveSelection")){

@@ -100,7 +100,6 @@ public class TripDetailsScreen extends javax.swing.JFrame {
         timeStartMin = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         purpose = new javax.swing.JTextArea();
-        totalStudents = new javax.swing.JTextField();
         transport_other = new javax.swing.JTextField();
         cost = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
@@ -128,6 +127,8 @@ public class TripDetailsScreen extends javax.swing.JFrame {
         jLabel21 = new javax.swing.JLabel();
         group = new javax.swing.JTextField();
         transport = new javax.swing.JComboBox<>();
+        totalStudents = new javax.swing.JSpinner();
+        jButton2 = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
 
         jMenuItem1.setText("jMenuItem1");
@@ -199,31 +200,11 @@ public class TripDetailsScreen extends javax.swing.JFrame {
         purpose.setRows(5);
         jScrollPane1.setViewportView(purpose);
 
-        totalStudents.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        totalStudents.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                totalStudentsFocusLost(evt);
-            }
-        });
-        totalStudents.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                totalStudentsActionPerformed(evt);
-            }
-        });
-        totalStudents.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                totalStudentsKeyReleased(evt);
-            }
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                totalStudentsKeyTyped(evt);
-            }
-        });
-
         transport_other.setText("other");
 
         cost.setToolTipText("Cost");
 
-        jButton1.setText("Submit");
+        jButton1.setText("Continue");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
@@ -326,7 +307,7 @@ public class TripDetailsScreen extends javax.swing.JFrame {
 
         jLabel20.setText("Note, please enter the times in 24 hour format.");
 
-        jLabel21.setText("Group");
+        jLabel21.setText("Group/ Dept.");
 
         group.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -335,6 +316,13 @@ public class TripDetailsScreen extends javax.swing.JFrame {
         });
 
         transport.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Select", "Car", "Bus", "Train", "Coach", "Walk", "Plane", "Boat", "Other" }));
+
+        jButton2.setText("Back");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -371,18 +359,18 @@ public class TripDetailsScreen extends javax.swing.JFrame {
                                             .addComponent(staff2, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                         .addGap(0, 0, Short.MAX_VALUE))))
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addComponent(jLabel7)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(totalStudents, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addComponent(jLabel9)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(transport, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(transport_other, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addGap(0, 0, Short.MAX_VALUE))))
+                                .addComponent(jLabel7)
+                                .addGap(18, 18, 18)
+                                .addComponent(totalStudents, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel9)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(transport, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(transport_other, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jButton2))))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addGap(12, 12, 12)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -494,12 +482,12 @@ public class TripDetailsScreen extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel21)
                     .addComponent(group, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(14, 14, 14)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(totalStudents, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel7))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel7)
+                            .addComponent(totalStudents, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel8)
@@ -526,6 +514,8 @@ public class TripDetailsScreen extends javax.swing.JFrame {
                         .addComponent(errMsg))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jButton2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButton1)
                         .addContainerGap())))
         );
@@ -596,7 +586,7 @@ public class TripDetailsScreen extends javax.swing.JFrame {
             tripEnd = timeEndHour.getText()+":"+timeEndMin.getText();
         String purpose = this.purpose.getText();
         String group = this.group.getText();
-        String maxPupils = totalStudents.getText();
+        String maxPupils = totalStudents.getValue()+"";
         String staff = (leader.getSelectedItem()+"\n"+staff1.getSelectedItem()+"\n"+staff2.getSelectedItem()+"\n"+staff3.getSelectedItem()).trim();
 //        String staff = (leader.getText()+"\n"+staff1.getText()+"\n"+staff2.getText()+"\n"+staff3.getText()).trim();
         String modeOfTransport = transport.getSelectedItem()+"";
@@ -638,9 +628,10 @@ public class TripDetailsScreen extends javax.swing.JFrame {
         Utils.contactServer(data);
         //Server responce will either call dataValid, or dataInvalid
     }//GEN-LAST:event_jButton1ActionPerformed
-    public void dataValid(){
+    public void dataValid(HashMap<String, String> data){
         dispose();
-        CollegeTripPlanner.uploads = new FileUploads();
+        CollegeTripPlanner.uploads = new FileUploads(data);
+//        CollegeTripPlanner.uploads.setUploads();
     }
     
     public void dataInvalid(String err){
@@ -657,25 +648,14 @@ public class TripDetailsScreen extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_resdentialActionPerformed
 
-    private void totalStudentsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_totalStudentsActionPerformed
-        setMinStaff();
-    }//GEN-LAST:event_totalStudentsActionPerformed
-
-    private void totalStudentsKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_totalStudentsKeyTyped
-        setMinStaff();
-    }//GEN-LAST:event_totalStudentsKeyTyped
-
-    private void totalStudentsFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_totalStudentsFocusLost
-        setMinStaff();
-    }//GEN-LAST:event_totalStudentsFocusLost
-
-    private void totalStudentsKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_totalStudentsKeyReleased
-        setMinStaff();
-    }//GEN-LAST:event_totalStudentsKeyReleased
-
     private void groupActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_groupActionPerformed
         //  add your handling code here:
     }//GEN-LAST:event_groupActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        dispose();
+        Utils.home(true);
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField address;
@@ -686,6 +666,7 @@ public class TripDetailsScreen extends javax.swing.JFrame {
     private javax.swing.JLabel errMsg;
     private javax.swing.JTextField group;
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -727,7 +708,7 @@ public class TripDetailsScreen extends javax.swing.JFrame {
     private javax.swing.JTextField timeStartMin;
     private javax.swing.JPanel toDay;
     private javax.swing.JTextField totalDays;
-    private javax.swing.JTextField totalStudents;
+    private javax.swing.JSpinner totalStudents;
     private javax.swing.JComboBox<String> transport;
     private javax.swing.JTextField transport_other;
     private javax.swing.JTextField year;
@@ -735,7 +716,7 @@ public class TripDetailsScreen extends javax.swing.JFrame {
 
     private void setMinStaff() {
         try{
-            int s = Integer.parseInt(totalStudents.getText())-1;
+            int s = Integer.parseInt(totalStudents.getValue()+"")-1;
             int staff = 1;
             staff += s/20;
             if(staff > 4)
@@ -776,7 +757,7 @@ public class TripDetailsScreen extends javax.swing.JFrame {
         resdential.setSelected(isResi);
         purpose.setText(data.get("purpose"));
         group.setText(data.get("groups"));
-        totalStudents.setText(data.get("max_students"));
+        totalStudents.setValue(Integer.parseInt(data.get("max_students")));
 
         String[] s = data.get("staff").split(",");
         if(s.length > 0)
